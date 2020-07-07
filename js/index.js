@@ -23,32 +23,22 @@ function isValidEmail(email) {
 
 }
 
+function getFieldName(input) {
+    let firstCharacter = input.charAt(0).toUpperCase() + input.slice(1)
+    return firstCharacter
+}
 
+function checkRequired(inputArr) {
+    inputArr.forEach((input) => {
+        if (input.value.trim() === '') {
+            showError(input, `${getFieldName(input.id)} is required`)
+        } else {
+            showSuccess(input)
+        }
+    })
+
+}
 form.addEventListener('submit', (e) => {
     e.preventDefault()
-    if (username.value === '') {
-        showError(username, 'Username is Required')
-    } else {
-        showSuccess(username)
-    }
-
-    if (email.value === '') {
-        showError(email, 'Email is Required')
-    } else if (!isValidEmail(email.value)) {
-        showError(email, 'Email Is Not Valid')
-    } else {
-        showSuccess(email)
-    }
-
-    if (password.value === '') {
-        showError(password, 'Password is Required')
-    } else {
-        showSuccess(password)
-    }
-
-    if (password2.value === '') {
-        showError(password2, 'Password 2 is Required')
-    } else {
-        showSuccess(password2)
-    }
+    checkRequired([username, email, password, password2])
 })
